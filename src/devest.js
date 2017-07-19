@@ -53,7 +53,7 @@ $(function() {
 		}
 		else {
 			var $priceContainerText = $(".price-container-text");
-			$priceContainerText.append("<div class=field-label>Earnings</div>");
+			$priceContainerText.append("<div class='field-label text-label'>Earnings</div>");
 			$priceContainerText.append("<span>" + usdString + "</span>");
 		}
 	});

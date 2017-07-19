@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "DevEst",
-  "version": "1.0",
+  "name": "Roblox DevEst",
+  "version": "1.1",
   "description": "Estimates USD earnings from any given asset on Roblox.",
   "icons": { "32": "icon.png" },
   "permissions": ["http://*.roblox.com/", "https://*.roblox.com/"],
