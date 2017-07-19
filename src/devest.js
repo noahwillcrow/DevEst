@@ -40,7 +40,7 @@ $(function() {
 		data: { assetId: assetID },
 		dataType: "json"
 	}).done(function(data) {
-		if (data.PriceInRobux == 0) {
+		if (data.PriceInRobux == 0 || data.PriceInRobux == null) {
 			return;
 		}
 
