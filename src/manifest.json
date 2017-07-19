@@ -1,0 +1,22 @@
+{
+  "name": "DevEst",
+  "version": "0.1",
+  "description": "Estimates USD earnings from any given asset on Roblox.",
+  "icons": { "128": "icon_128.png" },
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+  "permissions": ["http://*.roblox.com/", "https://*.roblox.com/"],
+  "browser_action": {
+    "default_title": "",
+    "default_icon": "icon_19.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://www.roblox.com/*"],
+      "js": ["devest.js"]
+    }
+  ]
+}
