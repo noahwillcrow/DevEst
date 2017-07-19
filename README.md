@@ -1,2 +1,2 @@
 # DevEst
-Estimate the cash money made by a Roblox developer of any given asset.
+This is a Google Chrome browser extension which estimates the USD earned by a Roblox developer from any given asset.
