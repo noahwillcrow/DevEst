@@ -4,7 +4,7 @@
   "short_name": "DevEst",
   "version": "1.1",
   "description": "Estimates USD earnings from any given asset on Roblox.",
-  "icons": { "32": "icon.png" },
+  "icons": { "32": "icon.png", "128": "icon-128.png" },
   "permissions": ["http://*.roblox.com/", "https://*.roblox.com/"],
   "browser_action": {
     "default_title": "",
