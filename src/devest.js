@@ -43,8 +43,11 @@ $(function() {
 		var usdMade = 0;
 
 		if (data.PriceInRobux == null || data.PriceInRobux == 0) {
-			if (!isGame) return;
-		} else {
+			if (!isGame) {
+				return;
+			}
+		}
+		else {
 			usdMade = taxRate * robuxToUsdRate * data.PriceInRobux * data.Sales;
 		}
 
@@ -67,26 +70,29 @@ $(function() {
 					url: 'https://api.roblox.com/Marketplace/ProductInfo',
 					data: { assetId: passId },
 					dataType: 'json',
-				}).done((data2) => {
-					if (data2.PriceInRobux != null && data2.PriceInRobux > 0) usdMade += taxRate * robuxToUsdRate * data2.PriceInRobux * data2.Sales;
+				}).done((gamepassData) => {
+					if (gamepassData.PriceInRobux != null && gamepassData.PriceInRobux > 0) {
+						usdMade += taxRate * robuxToUsdRate * gamepassData.PriceInRobux * gamepassData.Sales;
+					}
 					if (++completed == total) {
 						var usdString = `$${formatNumber(usdMade)}`;
-						var $gameTitleContainer = $('.game-title-container');
-						$gameTitleContainer.append(`<span class=text-label>Earnings: ${usdString}</span>`);
+						var $gamepassHeader = $('#rbx-game-passes .container-header');
+						$gamepassHeader.append(`<br style="clear: both;"><span class="text-label">Combined Earnings: ${usdString}</span>`);
 					}
 				});
 			}
-		} else {
-			var usdString = `$${formatNumber(usdMade)}`;
+		}
+		
+		var usdString = `$${formatNumber(usdMade)}`;
 
-			if (isGame) {
-				var $gameTitleContainer = $('.game-title-container');
-				$gameTitleContainer.append(`<span class=text-label>Earnings: ${usdString}</span>`);
-			} else {
-				var $priceContainerText = $('.price-container-text');
-				$priceContainerText.append("<div class='field-label text-label'>Earnings</div>");
-				$priceContainerText.append(`<span>${usdString}</span>`);
-			}
+		if (isGame) {
+			var $gameTitleContainer = $('.game-title-container');
+			$gameTitleContainer.append(`<span class=text-label>Paid Access Earnings: ${usdString}</span>`);
+		}
+		else {
+			var $priceContainerText = $('.price-container-text');
+			$priceContainerText.append("<div class='field-label text-label'>Earnings</div>");
+			$priceContainerText.append(`<span>${usdString}</span>`);
 		}
 	});
 });
