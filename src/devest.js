@@ -35,22 +35,36 @@ $(function() {
 		return;
 	}
 
-	$.ajax({
-		url: "https://api.roblox.com/Marketplace/ProductInfo",
-		data: { assetId: assetID },
-		dataType: "json"
-	}).done(function(data) {
-		var usdMade = 0;
-
-		if (data.PriceInRobux == null || data.PriceInRobux == 0) {
-			if (!isGame) {
+	function calculateAssetEarnings() {
+		$.ajax({
+			url: "https://api.roblox.com/Marketplace/ProductInfo",
+			data: { assetId: assetID },
+			dataType: "json"
+		}).done(function(data) {
+			if (data.PriceInRobux == null || data.PriceInRobux == 0) {
 				return;
 			}
-		}
-		else {
-			usdMade = taxRate * robuxToUsdRate * data.PriceInRobux * data.Sales;
-		}
 
+			var usdMade = taxRate * robuxToUsdRate * data.PriceInRobux * data.Sales;
+			
+			var usdString = `$${formatNumber(usdMade)}`;
+
+			if (isGame) {
+				var $gameTitleContainer = $('.game-title-container');
+				$gameTitleContainer.append(`<span class=text-label>Paid Access Earnings: ${usdString}</span>`);
+			}
+			else {
+				var $priceContainerText = $('.price-container-text');
+				$priceContainerText.append("<div class='field-label text-label'>Earnings</div>");
+				$priceContainerText.append(`<span>${usdString}</span>`);
+			}
+		});
+	}
+
+
+	function calculateGamepassEarnings() {
+		var usdMade = 0;
+		
 		var gamePasses = isGame ? $('.gear-passes-asset') : [];
 
 		if (gamePasses.length > 0) {
@@ -82,17 +96,8 @@ $(function() {
 				});
 			}
 		}
-		
-		var usdString = `$${formatNumber(usdMade)}`;
+	}
 
-		if (isGame) {
-			var $gameTitleContainer = $('.game-title-container');
-			$gameTitleContainer.append(`<span class=text-label>Paid Access Earnings: ${usdString}</span>`);
-		}
-		else {
-			var $priceContainerText = $('.price-container-text');
-			$priceContainerText.append("<div class='field-label text-label'>Earnings</div>");
-			$priceContainerText.append(`<span>${usdString}</span>`);
-		}
-	});
+	calculateAssetEarnings();
+	calculateGamepassEarnings();
 });
